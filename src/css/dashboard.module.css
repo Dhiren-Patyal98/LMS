@@ -1,0 +1,45 @@
+.heading
+{
+    /* margin-top: 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(63, 63, 154);
+    font-family:   Georgia, 'Times New Roman', Times, serif;
+    font-size: 40px;
+}
+.image1
+{
+   max-width: 250px;
+   max-height: 170px;
+   margin-bottom: 20px;
+}
+.image{
+    min-width:auto ;
+    max-height: 200px;
+
+}
+.card
+{
+    width: 30rem;
+    max-height: 200px;
+    margin-left: 1rem;
+    margin-top: 20px;
+
+
+}
+.card2
+{
+    width: 30rem;
+    max-height: 200px;
+    margin-left: 10px;
+}
+.text
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:   Georgia, 'Times New Roman', Times, serif;
+    font-size: 21px;
+ 
+}

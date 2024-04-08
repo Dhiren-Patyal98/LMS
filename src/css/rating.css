@@ -1,0 +1,23 @@
+/* Add this to your CSS file */
+.rating-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .rating-stars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .rating-stars svg {
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin: 0 2px;
+  }
+  
+  .selected-rating {
+    margin-left: 10px;
+    font-size: 1.5em;
+  }

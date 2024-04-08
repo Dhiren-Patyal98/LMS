@@ -1,0 +1,23 @@
+.vid
+{
+    text-align: center;
+  margin-top: 20px;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px +2vmin);
+ 
+
+}
+.heading
+{
+    font-size: 45px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 5px;
+ 
+ 
+}

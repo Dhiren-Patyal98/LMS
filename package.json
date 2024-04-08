@@ -1,0 +1,50 @@
+{
+  "name": "lsm",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.14.1",
+    "@heroicons/react": "^2.1.1",
+    "@material-tailwind/react": "^2.1.9",
+    "aos": "^3.0.0-beta.6",
+    "bootstrap": "^5.3.3",
+    "email-validator": "^2.0.4",
+    "express": "^4.19.2",
+    "flowbite-react": "^0.7.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.2",
+    "react-doc-viewer": "^0.1.5",
+    "react-dom": "^18.2.0",
+    "react-email-validator": "^1.0.2",
+    "react-icons": "^5.0.1",
+    "react-iframe": "^1.8.5",
+    "react-jstree": "^1.0.0",
+    "react-pdf": "^7.7.1",
+    "react-ppt": "^0.0.1",
+    "react-router-dom": "^6.22.3",
+    "react-shimmer-effects": "^1.0.3",
+    "react-simple-star-rating": "^5.1.7",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8.4.37",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.6",
+    "vite-plugin-static-copy": "^1.0.2"
+  }
+}

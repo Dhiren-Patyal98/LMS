@@ -1,0 +1,26 @@
+
+
+.image
+{
+    background-image:url('../assets/lmshome11.png') ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 'center';
+    height: 85vh;
+    width: 100%;   
+} 
+.dd
+{
+    color: rgb(96, 96, 211);
+}
+.logo
+{
+    max-width: 90px;
+    max-height: 90px;
+    /* transform: translateY(-40%) ; */
+    
+    transform: translateY(-15%);
+    padding:0px
+    
+}
+
