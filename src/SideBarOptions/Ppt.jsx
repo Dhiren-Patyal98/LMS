@@ -20,4 +20,3 @@ const GoogleSlides = () => {
 };
 
 export default GoogleSlides;
-

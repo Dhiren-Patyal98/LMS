@@ -13,9 +13,10 @@ import Pdf from '../SideBarOptions/Pdf';
 import { Container } from 'react-bootstrap';
 import CourseDetails from '../SideBarOptions/CourseDetails';
 import Assignment from '../SideBarOptions/Assignment';
+import Quiz from '../SideBarOptions/Quiz'
 
 
-const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt }) => {
+const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt,quiz }) => {
     let content;
     if (clicked) {
         content = (
@@ -35,7 +36,12 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
         content = <Ppt />
         
     }
-    else {
+    else if(quiz) {
+        content = <Quiz/>
+        
+    }
+    else
+    {
         content = <CourseDetails />
     }
     
@@ -124,6 +130,7 @@ Navbar.propTypes = {
     video: PropTypes.bool.isRequired,
     assignment: PropTypes.bool.isRequired,
     ppt: PropTypes.bool.isRequired,
+    quiz: PropTypes.bool.isRequired,
 };
 
 export default Navbar;

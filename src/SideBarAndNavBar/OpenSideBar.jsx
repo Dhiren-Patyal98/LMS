@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 
 const OpenSideBar = ({ sidebarToggle, setsidebarToggle, clicked, detail, setdetail, video, setvideo, assignment,
-  setassignment, ppt, setppt }) => {
+  setassignment, ppt, setppt, quiz, setquiz }) => {
   return (
     <div className={`${sidebarToggle ? "" : "ml-64"} w-full `}>
       <Navbar
@@ -18,6 +18,8 @@ const OpenSideBar = ({ sidebarToggle, setsidebarToggle, clicked, detail, setdeta
         setassignment={setassignment}
         ppt={ppt}
         setppt={setppt}
+        quiz={quiz}
+        setquiz={setquiz}
       />
     </div>
   );
@@ -36,6 +38,9 @@ OpenSideBar.propTypes = {
   setassignment: PropTypes.func.isRequired,
   ppt: PropTypes.bool.isRequired,
   setppt: PropTypes.func.isRequired,
+  quiz: PropTypes.bool.isRequired,
+  setquiz: PropTypes.func.isRequired,
+
 };
 
 

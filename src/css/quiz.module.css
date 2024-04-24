@@ -1,0 +1,43 @@
+.heading
+{
+    font-size: 45px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    align-items: center;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.mcq
+{
+    margin-top: 25px;
+    min-height: 450px;
+    min-width: 850px;
+    
+}
+.p
+{
+    font-size: 30px;
+    text-align: center;
+}
+.option
+{
+    color: black;
+}
+.button
+{
+    margin-top: 30px;
+    margin-left: 25%;
+    margin-right: 25%;
+    max-width: 350px;
+    
+}
+.button1
+{
+    
+    
+        margin-bottom: 40px;
+        margin-left: 560px;
+
+
+}
+    

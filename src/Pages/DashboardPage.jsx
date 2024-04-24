@@ -12,6 +12,7 @@ import style from '../css/dashboard.module.css';
 import { FaStar } from 'react-icons/fa';
 import { FaUserCircle, FaSearch } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { FaUsers } from "react-icons/fa";
 import '../css/rating.css';
 
 
@@ -44,7 +45,7 @@ export default function DashboardPage() {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-  
+
   const courses = [
     { title: "Learn Python", image: img1, link: "/calling" },
     { title: "Python Pro", image: img1, link: "/" },
@@ -103,18 +104,23 @@ export default function DashboardPage() {
                         <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><FiSettings /></Col>
                         <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}>Setting</Col></Row>
                     </li>
-                    <span onClick={() => {
-                      navigate("/");
+                    
+                      <li className='mb-2 rounded hover:shadow hover:bg-gray-200  py-1 px-2' style={{ margin: "10px" }}>
 
-                    }}>
+
+                        <Row>
+                          <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><FaUsers /></Col>
+                          <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}><span onClick={() => navigate('/aboutus')}>Aboutus</span></Col></Row>
+                      </li>
                       <li className='mb-2 rounded hover:shadow hover:bg-gray-200  py-1 px-2' style={{ margin: "10px" }}>
 
 
                         <Row>
                           <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><FiLogOut /></Col>
-                          <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}><span onClick={() => navigate('/login')}>Logout</span></Col></Row>
+                          <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}><span onClick={() => navigate('/')}>Logout</span></Col></Row>
                       </li>
-                    </span>
+
+                    
                   </ul>
                 </div>
               </button>
@@ -125,7 +131,7 @@ export default function DashboardPage() {
 
       {/* background Image */}
       <div style={{ backgroundImage: `url(${bg})`, backgroundSize: '964px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '100vh', width: "100%", position: 'relative' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 1)' }}>
           <div data-aos="fade-up" data-aos-offset="200" data-aos-delay="50" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="false" data-aos-anchor-placement="top-center">
             <h1 className={style.heading} style={{ position: 'relative' }}>Start Learning</h1>
             <hr style={{ marginTop: "13px", marginBottom: "5px" }} />

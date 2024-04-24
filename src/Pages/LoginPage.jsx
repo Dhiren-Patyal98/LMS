@@ -209,7 +209,7 @@ export default function LoginPage() {
                                                         setbuttonClick(false)
                                                         setTimeout(() => {
                                                             navigate("/dash")
-                                                        }, 3000);
+                                                        }, 1000);
                                                     }
                                                 }} size="lg"
                                                 
