@@ -7,6 +7,34 @@ import * as Yup from 'yup';
 import bg from '../assets/background1.jpg'
 
 export default function RegistrationPage() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    // const [submit,setsubmit] = useState("")
+
+  
+    const formSubmission = () => {
+      fetch("http://localhost:4000/api/auth", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email,password }),
+      }).then((res) =>
+        res.json().then((data) => {
+          console.log(data);
+          if (data.email == email && data.password == password) {
+            navigate("/dash");
+          } else {
+            navigate("/login");
+          }
+        })
+      );
+      console.log("Email is " + email);
+      console.log("Password is " + password);
+    };
+  
+
     const buttonStyle = {
         backgroundColor: 'purple',
         color: 'white',
@@ -88,13 +116,26 @@ export default function RegistrationPage() {
         const { name, value } = e.target;
         setformData({ ...formData, [name]: value })
     }
+    const handleChange1 = (e) => {
+        const { name, value } = e.target;
+        setEmail(e.target.value)
+        setformData({ ...formData, [name]: value })
+    }
+    const handleChange2 = (e) => {
+        const { name, value } = e.target;
+        setPassword(e.target.value)
+        setformData({ ...formData, [name]: value })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+       
         try {
             await validationSchema.validate(formData, { abortEarly: false })
             seterror({ email: '', password: '', confirmpassword: '' })
+            
             setbuttonStatus(true)
+            
 
         }
         catch (errors) {
@@ -109,13 +150,15 @@ export default function RegistrationPage() {
 
     }
 
-    const [buttonClick, setbuttonClick] = useState(true);
+    
+
+    // const [buttonClick, setbuttonClick] = useState(true);
     const navigate = useNavigate();
     return (
         <>
             <div style={styles}>
                 <div style={backgroundOverlay}></div>
-                {buttonClick ?
+                
 
                     <Container className={style.card}>
                         <div className={`card ${style.ccard}`}>
@@ -135,12 +178,14 @@ export default function RegistrationPage() {
                                 <Row>
                                     <Col style={{ marginTop: "4vh" }}><img className={style.img1} src={image} /> </Col>
                                     <Col >
-                                        <form style={{ marginLeft: "20px", marginTop: "5vh" }} onSubmit={handleSubmit}>
+                                        <form style={{ marginLeft: "20px", marginTop: "5vh" }} onSubmit={handleSubmit}
+                                        
+                                      >
 
 
                                             <div
                                                 style={{ marginBottom: "20px" }} className="form-floating">
-                                                <input type="email" className="form-control" id="floatingInput" name='email' value={formData.email} onChange={handleChange} />
+                                                <input type="email" className="form-control" id="floatingInput" name='email' value={formData.email} onChange={handleChange1} />
                                                 <label htmlFor="floatingInput">
                                                     <Row>
 
@@ -160,7 +205,7 @@ export default function RegistrationPage() {
                                                 style={{ marginBottom: "20px", marginTop: "20px" }}
                                                 className="form-floating">
 
-                                                <input type="text" className="form-control" id="floatingInput" name='password' value={formData.password} onChange={handleChange} />
+                                                <input type="text" className="form-control" id="floatingInput" name='password' value={formData.password} onChange={handleChange2} />
                                                 <label htmlFor="floatingInput">
                                                     <Row>
 
@@ -209,12 +254,14 @@ export default function RegistrationPage() {
 
 
 
-                                                <button type='submit' onClick={() => {
+                                                <button type="submit" onClick={() => {
                                                     if (buttonStatus === true) {
-                                                        setbuttonClick(false)
-                                                        setTimeout(() => {
-                                                            navigate("/login")
-                                                        }, 0);
+                                                        // setbuttonClick(false)
+                                                        // setTimeout(() => {
+                                                        //     navigate("/login")
+                                                        // }, 0);
+                                                        formSubmission();
+                                                        
                                                     }
                                                 }
 
@@ -225,7 +272,9 @@ export default function RegistrationPage() {
                                                   }}
                                                   onMouseEnter={handleHover}
                                                   onMouseLeave={handleMouseLeave}
-                                                  className="btn"size="lg">Register</button>
+                                                  className="btn"size="lg"
+                                                //    disabled={buttonStatus}
+                                                  >Register</button>
 
 
 
@@ -242,9 +291,7 @@ export default function RegistrationPage() {
 
                     </Container>
 
-                    : () => { navigate("/loading") }
-
-                }</div>
+                </div>
         </>
 
     )

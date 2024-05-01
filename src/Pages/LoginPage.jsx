@@ -6,11 +6,36 @@ import image from '../assets/Login.png'
 import { useNavigate } from 'react-router-dom';
 
 import bg from '../assets/background1.jpg'
-import Shimmer from '../Shimmer/Shimmer';
+// import Shimmer from '../Shimmer/Shimmer';
 import * as Yup from 'yup'
 export default function LoginPage() {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isHovered, setIsHovered] = useState(false);
+
+    const formSubmission = () => {
+        fetch("http://localhost:4000/login", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email,password }),
+        }).then((res) => 
+          res.json().then((data) => {
+            console.log(data);
+            if (email === "" && password === "") {
+              navigate("/login");
+            } else if (data)
+             
+            {
+              navigate("/dash");
+            }
+          })
+        );
+        console.log("Email is " + email);
+        console.log("Password is " + password);
+      };
 
     const handleHover = () => {
         setIsHovered(true);
@@ -55,8 +80,8 @@ export default function LoginPage() {
 
     };
 
-    const [buttonStatus, setbuttonStatus] = useState(false);
-    const [buttonClick, setbuttonClick] = useState(true);
+    // const [buttonStatus, setbuttonStatus] = useState(false);
+    // const [buttonClick, setbuttonClick] = useState(true);
     const navigate = useNavigate();
 
 
@@ -83,11 +108,12 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        formSubmission();
 
         try {
             await validationSchema.validate(formData, { abortEarly: false })
             seterror({ email: '', password: '' });
-            setbuttonStatus(true)
+            // setbuttonStatus(true)
 
         } catch (errors) {
 
@@ -105,19 +131,28 @@ export default function LoginPage() {
 
 
 
-    const handleChange = (e) => {
+    const handleChange1 = (e) => {
         const { name, value } = e.target;
-
+        setEmail(e.target.value);
         setformdata({ ...formData, [name]: value });
 
 
     };
 
+    const handleChange2 = (e) => {
+        const { name, value } = e.target;
+        setPassword(e.target.value);
+        setformdata({ ...formData, [name]: value });
+
+
+    };
+
+
     return (
         <>
 
 
-            {buttonClick ?
+           
                 <div style={styles}>
                     <div style={backgroundOverlay}></div>
 
@@ -144,7 +179,7 @@ export default function LoginPage() {
 
                                             <div
                                                 style={{ marginBottom: "20px" }} className="form-floating" >
-                                                <input type="email" name='email' className="form-control" id="floatingInput" value={formData.email} onChange={handleChange} />
+                                                <input type="email" name='email' className="form-control" id="floatingInput" value={formData.email} onChange={handleChange1} />
 
                                                 <label htmlFor="floatingInput">
                                                     <Row>
@@ -163,7 +198,7 @@ export default function LoginPage() {
 
                                             <div className="form-floating">
 
-                                                <input type={pass} name='password' className="form-control" id="floatingInput" value={formData.password} onChange={handleChange} />
+                                                <input type={pass} name='password' className="form-control" id="floatingInput" value={formData.password} onChange={handleChange2} />
                                                 <label className={style.label}>
                                                     <Row>
 
@@ -204,14 +239,11 @@ export default function LoginPage() {
 
 
                                             <div className={style.button}>
-                                                <button type='submit' onClick={() => {
-                                                    if (buttonStatus === true) {
-                                                        setbuttonClick(false)
-                                                        setTimeout(() => {
-                                                            navigate("/dash")
-                                                        }, 1000);
-                                                    }
-                                                }} size="lg"
+                                                <button type='submit' size="lg"
+                                                // onClick={()=>
+                                                // {
+                                                //     window.alert("Enter correct e-mail and password")
+                                                // }}
                                                 
                                                 style={{
                                                   ...buttonStyle,
@@ -241,9 +273,7 @@ export default function LoginPage() {
                     </Container>
                 </div>
 
-                :
-                <Shimmer />
-            }
+              
         </>
 
     )
