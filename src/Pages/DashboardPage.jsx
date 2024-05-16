@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { CgProfile } from "react-icons/cg";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import { Link } from 'react-router-dom';
-import bg from '../assets/background1.jpg';
+// import bg from '../assets/background1.jpg';
 import img from '../assets/course.jpg';
 import img1 from '../assets/python1.jpg'
 // import axios from 'axios'
@@ -14,9 +14,71 @@ import { FaUserCircle, FaSearch } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { FaUsers } from "react-icons/fa";
 import '../css/rating.css';
-
+import'../css/dashboard.css'
+import axios from "axios";
+import razorimg from '../assets/CodeEdu.png'
 
 export default function DashboardPage() {
+
+ 
+
+  const checkoutHandler = async (amount)=>
+    {
+      const {data:{key}} = await axios.get("http://localhost:4000/api/getkey")
+       const {data:{order}} = await axios.post("http://localhost:4000/api/checkout",{amount})
+      
+
+       
+       const options = {
+        key, // Enter the Key ID generated from the Dashboard
+        amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "CodeEDU",
+        description: "E-Learning Platform",
+        image: {razorimg},
+        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "http://localhost:4000/api/paymentverification",
+        prefill: {
+            name: "Dhiren Patyal",
+            email: "patyaldhiren@gmail.com",
+            contact: "9000090000"
+        },
+        notes: {
+            address: "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#3399cc"
+        }
+    };
+      
+      const rzp1 = new window.Razorpay(options);
+     
+          rzp1.open();
+      
+        
+        
+    }
+
+
+
+  const [coursedata, setcoursedata] = useState([]);
+
+  const getBackend =()=>
+  {
+    fetch("http://localhost:4000/api/data", {
+      method:"get",
+    }).then((res) =>
+    {
+      res.json().then((data)=>
+    {
+      // console.log(data);
+      setcoursedata(data);
+    })
+    }
+  )
+  }
+
+  useEffect(getBackend,[coursedata])
   // const [courses, setCourses] = useState([]);
   // useEffect(()=>
   // {
@@ -46,20 +108,28 @@ export default function DashboardPage() {
     setSearchTerm(event.target.value);
   };
 
-  const courses = [
-    { title: "Learn Python", image: img1, link: "/calling" },
-    { title: "Python Pro", image: img1, link: "/" },
-    { title: "Learn Java", image: img1, link: "/calling" },
-    { title: "Java Pro", image: img1, link: "/" },
-    { title: "Learn CSS and HTML", image: img1, link: "/" },
-  ];
+  // const courses = [
+  //   { title: "Learn Python", image: img1, link: "/calling" },
+  //   { title: "Python Pro", image: img1, link: "/" },
+  //   { title: "Learn Java", image: img1, link: "/calling" },
+  //   { title: "Java Pro", image: img1, link: "/" },
+  //   { title: "Learn CSS and HTML", image: img1, link: "/" },
+  // ];
+
+  // const courses = [
+  //   { image: img1, link: "/calling" },
+  //   { image: img1, link: "/" },
+  //   { image: img1, link: "/calling" },
+  //   { image: img1, link: "/" },
+  //   { image: img1, link: "/" },
+  // ];
 
   const Explorecourses = [
-    { title: "Language Course", image: img, link: "/" },
-    { title: "IT Course", image: img, link: "/" },
+    { title: " Backend Courses", image: img, link: "/" },
+    { title: "Frontend Courses", image: img, link: "/" },
   ];
 
-  const filteredCourses = courses.filter(course =>
+  const filteredCourses = coursedata.filter(course =>
     course.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -130,18 +200,18 @@ export default function DashboardPage() {
       </nav>
 
       {/* background Image */}
-      <div style={{ backgroundImage: `url(${bg})`, backgroundSize: '964px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '100vh', width: "100%", position: 'relative' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 1)' }}>
-          <div data-aos="fade-up" data-aos-offset="200" data-aos-delay="50" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="false" data-aos-anchor-placement="top-center">
+      <div style={{ backgroundImage: ``, backgroundSize: '964px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', minHeight: 'calc(100vh - 64px)', position: 'relative' }}>
+        <div style={{ backgroundColor: 'rgba(255, 255, 255, 1)', padding: '20px' }}>
+        <div>
             <h1 className={style.heading} style={{ position: 'relative' }}>Start Learning</h1>
             <hr style={{ marginTop: "13px", marginBottom: "5px" }} />
             {searchTerm === '' && (
               <>
-                <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", marginBottom: "10px" }}>Explore our Courses</h3>
+                <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", marginBottom: "10px" }}>Categories</h3>
                 <Row>
                   {Explorecourses.map((course, index) => (
                     <Col key={index} xs="4">
-                      <div className={`card ${style.card}`}>
+                      <div className={`card ${style.card}`} style={{boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)"}}>
                         <div className="card-body">
                           <Row>
                             <Col xs="7">
@@ -161,7 +231,7 @@ export default function DashboardPage() {
                   ))}
                 </Row>
                 <hr style={{ marginTop: "40px", marginBottom: "5px" }}></hr>
-                <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", }}>Active Courses</h3>
+                <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", }}>Courses</h3>
                 <Row style={{ marginBottom: "10px", marginTop: "10px" }}>
                   {filteredCourses.map((course, index) => {
                     if (Explorecourses.find(exploreCourse => exploreCourse.title.toLowerCase() === course.title.toLowerCase())) {
@@ -169,16 +239,18 @@ export default function DashboardPage() {
                     }
                     return (
                       <Col key={index} xs="4">
-                        <div className="card" style={{ width: "30rem", marginLeft: "1rem", marginBottom: "10px", marginTop: "10px" }}>
+                        <div className="card" style={{ width: "30rem", marginLeft: "1rem", marginBottom: "10px", marginTop: "10px" ,boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)" }}>
                           <div className="card-body">
                             <Row>
-                              <Link to={course.link}>
-                                <img className={`card-img-top ${style.image}`} src={course.image} alt="..." />
+                              <Link to="/calling">
+                                <img className={`card-img-top ${style.image}`} src={img1} alt="..." />
                               </Link>
                             </Row>
                             <Row>
                               <Col>
-                                <Link to={course.link}><p className={`card-text ${style.text}`} >{course.title}</p></Link>
+                                <Link to="/calling"><p className={`card-text ${style.text}`} >{course.title}
+                                 
+                                </p></Link>
                               </Col>
                               <Col>
                                 <div className="rating-container">
@@ -193,6 +265,16 @@ export default function DashboardPage() {
                                     ))}
                                   </div>
                                 </div>
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col xs="6">
+                              <p style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '30px' }}>Price: ₹{course.amount}</p>
+                              </Col>
+                              <Col style={{marginLeft:"80%" }} xs="6">
+                              <div >
+                              <button onClick={() => checkoutHandler(course.amount)}  type="button" className="btn btn-outline-secondary custom-btn">Enroll</button>
+                              </div>
                               </Col>
                             </Row>
                           </div>
@@ -210,11 +292,11 @@ export default function DashboardPage() {
                 <Row style={{ marginBottom: "10px", marginTop: "10px" }}>
                   {filteredCourses.map((course, index) => (
                     <Col key={index} xs="4">
-                      <div className="card" style={{ width: "30rem", marginLeft: "1rem", marginBottom: "10px", marginTop: "10px" }}>
+                      <div className="card" style={{ width: "30rem", marginLeft: "1rem", marginBottom: "10px", marginTop: "10px" ,boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)"}}>
                         <div className="card-body">
                           <Row>
                             <Link to={course.link}>
-                              <img className={`card-img-top ${style.image}`} src={course.image} alt="..." />
+                              <img className={`card-img-top ${style.image}`} src={img1} alt="..." />
                             </Link>
                           </Row>
                           <Row>

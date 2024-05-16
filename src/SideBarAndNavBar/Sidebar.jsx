@@ -8,8 +8,11 @@ import { AiFillHome } from "react-icons/ai";
 import PropTypes from 'prop-types';
 import { RiFilePpt2Fill } from "react-icons/ri";
 import { MdQuiz } from "react-icons/md";
+import { FaBookReader } from "react-icons/fa";
+import { CircularProgressbar,buildStyles} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-const Sidebar = ({ sidebarToggle, setclicked, setdetail, setvideo, setassignment ,setppt,setquiz}) => {
+const Sidebar = ({ sidebarToggle, setclicked, setdetail, setvideo, setassignment ,setppt,setquiz,progressbar}) => {
   const [activeOption, setActiveOption] = useState(null);
 
   const handleOptionClick = (option) => {
@@ -127,8 +130,38 @@ const Sidebar = ({ sidebarToggle, setclicked, setdetail, setvideo, setassignment
           >
             <MdQuiz className='inline-block w-6 h-6 mr-2 -mt-2'></MdQuiz>
             Quiz
+          
+                  
           </li>
+          
+
         </Link>
+        <Link>
+        <li className={`mb-2 rounded hover:shadow hover:bg-blue-500 py-2 px-2 ${activeOption === "result" ? 'bg-purple-950' : ''}`}
+            onClick={() => handleOptionClick("quiz")}>
+        <FaBookReader className='inline-block w-6 h-6 mr-2 -mt-2' ></FaBookReader>
+        Results
+        </li>
+        </Link>
+        <li>
+        <div style={{ width: '100px', height: '100px',display:"flex", marginLeft:"20px",marginTop:"20px" }}>
+              <CircularProgressbar
+                
+                
+                value={progressbar === 0 ? 0 : progressbar === 1 ? 20 : progressbar === 2 ? 40 : progressbar === 3 ? 60 : progressbar === 4 ? 80 : progressbar === 5 ? 100 : 100}
+                text={`${progressbar === 0 ? 0 : progressbar === 1 ? 20 : progressbar === 2 ? 40 : progressbar === 3 ? 60 : progressbar === 4 ? 80 : progressbar === 5 ? 100 : 100}%`}
+             
+
+                styles={buildStyles({
+                  textColor: "white",
+                  pathColor: "#6f42c1",
+                  trailColor: "#d6d6d6",
+                  
+                })}
+              />
+              </div>
+        </li>
+        
         
       </ul>
     </div>
@@ -143,6 +176,8 @@ Sidebar.propTypes = {
   setassignment: PropTypes.func.isRequired,
   setppt: PropTypes.func.isRequired,
   setquiz: PropTypes.func.isRequired,
+  progressbar:PropTypes.func.isRequired,
+  
 };
 
 export default Sidebar;

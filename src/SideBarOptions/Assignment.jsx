@@ -1,17 +1,28 @@
-
 import style from '../css/assignment.module.css'
-
+import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useState } from 'react'
-export default function Assignment() {
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+export default function Assignment({setprogressbar ,progressbar }) {
+
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [editorContent, setEditorContent] = useState('');
+
+  const handleClick = () => {
+    if (!buttonClicked) {
+      setButtonClicked(true);
+      setprogressbar(prevProgressbar => prevProgressbar + 1);
+      console.log(progressbar)
     }
   };
-  const editorRef = useRef(null);
 
+  const log = () => {
+    if (editorRef.current) {
+      setEditorContent(editorRef.current.getContent());
+    }
+  };
+
+  const editorRef = useRef(null);
 
   const [isHovered, setIsHovered] = useState(false);
 
@@ -30,20 +41,20 @@ export default function Assignment() {
     width: '12vh',
     transition: 'background-color 0.3s, border-color 0.3s'
   };
+
   return (
-
-
     <>
-    <div className={`card ${style.ques}`}>
-      <div className='card-body'>
-        <p>Enter a python code which can do basic calculations. </p>
-      </div>
+      <div className={`card ${style.ques}`}>
+        <div className='card-body'>
+          <p>Enter a python code which can do basic calculations. </p>
+        </div>
 
-    </div>
+      </div>
       <Editor
         apiKey='zz04k1tc5w8gnogwyss4cpp7yxez5jbxi7enlubc6gyrku9k'
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        initialValue=""
+        onEditorChange={log}
         init={{
           height: 500,
           menubar: false,
@@ -65,24 +76,22 @@ export default function Assignment() {
           style={{
             ...buttonStyle,
             backgroundColor: isHovered ? '#6f42c1' : '#581c87',
-            borderColor: isHovered ? '#6f42c1' : 'white'
+            borderColor: isHovered ? '#6f42c1' : 'white',
+            opacity: editorContent ? 1 : 0.5,
+            cursor: editorContent ? 'pointer' : 'not-allowed'
           }}
           onMouseEnter={handleHover}
           onMouseLeave={handleMouseLeave}
           className="btn"
-
-          onClick={log}
-        // disabled={buttonStatus}
-
+          disabled={!editorContent}
+          onClick={handleClick}
         >Submit</button>
 
-
-
-
-
-      </div>
+    </div>
     </>
   );
-
-
 }
+Assignment.propTypes = {
+  progressbar:PropTypes.func.isRequired,
+  setprogressbar:PropTypes.func.isRequired,
+};

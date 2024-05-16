@@ -4,16 +4,12 @@ import 'react-circular-progressbar/dist/styles.css';
 
 
 // Import react-circular-progressbar module and styles
-import {
- 
-  CircularProgressbarWithChildren,
- 
-} from "react-circular-progressbar";
+
 import "react-circular-progressbar/dist/styles.css";
 
 // Animation
 
-import AnimatedProgressProvider from "./AnimatedProgressProvider";
+
 import ChangingProgressProvider from "./ChangingProgressProvider";
 
 // Radial separators
@@ -38,6 +34,19 @@ export default function Progress() {
         )}
       </ChangingProgressProvider>
     </Example>
+
+    <div style={{ width: '100px', height: '100px',display:"flex", marginLeft:"320px" }}>
+              <CircularProgressbar
+             
+                
+                styles={buildStyles({
+                  textColor: "#000",
+                  pathColor: "black",
+                  trailColor: "#d6d6d6",
+                  
+                })}
+              />
+                   </div>
 
     </div>
   )

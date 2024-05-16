@@ -1,35 +1,9 @@
-.sidebar {
-    width: 250px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color:  rgb(63, 63, 154); /* Blue shade */
-    border-right: 1px solid #ccc; /* Add border for separation */
-  }
-  
-  .sidebar-header {
-    padding: 10px;
-    background-color: #fff; /* White background for header */
-    font-weight: bold;
-    border-bottom: 1px solid #ccc; /* Add border below header */
-  }
-  
-  .sidebar-nav {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar-item {
-    padding: 10px;
-  }
-  
-  .sidebar-link {
-    text-decoration: none;
-    color: white; /* Dark text color */
-  }
-  
-  .sidebar-link:hover {
-    color: whitesmoke /* Change text color on hover */
-  }
-  
+.custom-btn {
+  /* Define your button styles here */
+  color: black;
+}
+
+.custom-btn:hover {
+  background-color: #581c87; /* Change to the desired purple color */
+  color: white; /* Change text color to contrast with the background */
+}

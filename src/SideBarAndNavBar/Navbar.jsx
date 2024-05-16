@@ -14,37 +14,37 @@ import { Container } from 'react-bootstrap';
 import CourseDetails from '../SideBarOptions/CourseDetails';
 import Assignment from '../SideBarOptions/Assignment';
 import Quiz from '../SideBarOptions/Quiz'
+// import Progress from "../progress/Progress";
 
 
-const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt,quiz }) => {
+const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt, quiz, progressbar, setprogressbar }) => {
     let content;
     if (clicked) {
         content = (
             <Container style={{ backgroundColor: 'white', marginTop: '20px', marginBottom: '20px' }}>
-                <Pdf />
+                <Pdf setprogressbar={setprogressbar} progressbar={progressbar} />
             </Container>
         );
     } else if (detail) {
         content = <CourseDetails />;
     } else if (video) {
-        content = <CourseVideos />
+        content = <CourseVideos setprogressbar={setprogressbar} progressbar={progressbar} />
     } else if (assignment) {
-        content = <Assignment />
-        
+        content = <Assignment setprogressbar={setprogressbar} progressbar={progressbar} />
+
     }
     else if (ppt) {
-        content = <Ppt />
-        
+        content = <Ppt setprogressbar={setprogressbar} progressbar={progressbar} />
+
     }
-    else if(quiz) {
-        content = <Quiz/>
-        
+    else if (quiz) {
+        content = <Quiz setprogressbar={setprogressbar} progressbar={progressbar} />
+
     }
-    else
-    {
+    else {
         content = <CourseDetails />
     }
-    
+
     const navigate = useNavigate();
 
     return (
@@ -56,12 +56,12 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
                     }} />
                     <span className='text-white font-semibold'>Dashboard</span>
                 </div>
-                <div style={{marginLeft:"125vh"}}>
+                <div style={{ marginLeft: "125vh" }}>
                     <div className='relative'>
                         <button className='text-white group'>
-                        <BsBellFill className='w-6 h-6 mt-1' ></BsBellFill>
+                            <BsBellFill className='w-6 h-6 mt-1' ></BsBellFill>
                         </button>
-                        </div>
+                    </div>
                 </div>
                 <div className='flex items-center gap-x-5'>
                     <div className='relative'>
@@ -75,7 +75,7 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
 
                                         }}>
                                             <Row>
-                                                
+
                                                 <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><CgProfile /></Col>
                                                 <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}>Profile</Col>
                                             </Row>
@@ -110,11 +110,14 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
                 </div>
             </nav>
 
+
+
             {clicked ?
                 <Container style={{ backgroundColor: 'white', marginTop: '20px', marginBottom: '20px' }}>
-                    <Pdf />
+                    <Pdf setprogressbar={setprogressbar} progressbar={progressbar} />
                 </Container>
                 :
+
                 content
             }
         </>
@@ -131,6 +134,10 @@ Navbar.propTypes = {
     assignment: PropTypes.bool.isRequired,
     ppt: PropTypes.bool.isRequired,
     quiz: PropTypes.bool.isRequired,
+
+    progressbar: PropTypes.func.isRequired,
+    setprogressbar: PropTypes.func.isRequired,
+
 };
 
 export default Navbar;

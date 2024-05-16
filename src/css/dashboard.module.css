@@ -1,45 +1,42 @@
-.heading
-{
-    /* margin-top: 20px; */
+.heading {
     display: flex;
     align-items: center;
     justify-content: center;
     color: rgb(63, 63, 154);
-    font-family:   Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 40px;
+    margin-top: 20px; /* Adjust margin as needed */
 }
-.image1
-{
-   max-width: 250px;
-   max-height: 170px;
-   margin-bottom: 20px;
-}
-.image{
-    min-width:auto ;
-    max-height: 200px;
 
+.image1 {
+    max-width: 250px;
+    max-height: 170px;
+    margin-bottom: 20px;
 }
-.card
-{
-    width: 30rem;
+
+.image {
+    max-width: auto; /* Adjust as needed */
     max-height: 200px;
+}
+
+.card {
+    width: 30rem;
+    max-height: 250px; /* Adjust height as needed */
     margin-left: 1rem;
     margin-top: 20px;
-
-
 }
-.card2
-{
+
+.card2 {
     width: 30rem;
-    max-height: 200px;
-    margin-left: 10px;
+    max-height: 250px; /* Adjust height as needed */
+    margin-left: 10px; /* Adjust margin as needed */
 }
-.text
-{
+
+.text {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family:   Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 21px;
- 
 }
+

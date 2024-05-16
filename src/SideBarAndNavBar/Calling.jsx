@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import SidebarNav from './Sidebar';
+import Sidebar from './Sidebar';
 import OpenSiderBar from './OpenSideBar';
-import bg from '../assets/background1.jpg';
+// import bg from '../assets/background1.jpg';
 
 export default function Calling() {
   const [clicked, setclicked] = useState(false);
@@ -11,8 +11,9 @@ export default function Calling() {
   const [assignment, setassignment] = useState(false);
   const [ppt, setppt] = useState(false);
   const [ quiz, setquiz] = useState(false);
+  const[progressbar,setprogressbar] = useState(0);
   const styles = {
-    backgroundImage: `url(${bg})`, // Use `url()` to specify the path to the image
+    backgroundImage: ``, // Use `url()` to specify the path to the image
     backgroundSize: '964px', // Adjust the background size
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -36,7 +37,7 @@ export default function Calling() {
         <div style={backgroundOverlay}></div>
         <div className='flex' style={{ position: 'relative', zIndex: 0 }}>
 
-          <SidebarNav
+          <Sidebar
             sidebarToggle={sidebarToggle}
             clicked={clicked} setclicked={setclicked}
             detail={detail}
@@ -48,7 +49,9 @@ export default function Calling() {
             ppt={ppt}
             setppt={setppt}
             quiz={quiz}
-            setquiz={setquiz}/>
+            setquiz={setquiz}
+            progressbar={progressbar}
+            setprogressbar={setprogressbar}/>
 
           <OpenSiderBar
             sidebarToggle={sidebarToggle} setsidebarToggle={setsidebarToggle}
@@ -63,6 +66,8 @@ export default function Calling() {
             setppt={setppt}
             quiz={quiz}
             setquiz={setquiz}
+            progressbar={progressbar}
+            setprogressbar={setprogressbar}
           />
 
         </div>

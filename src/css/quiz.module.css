@@ -6,6 +6,7 @@
     text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
+    margin-right: 5%;
 }
 .mcq
 {
@@ -34,9 +35,9 @@
 .button1
 {
     
-    
+        margin-top: 3%;
         margin-bottom: 40px;
-        margin-left: 560px;
+        margin-left: 43%;
 
 
 }
