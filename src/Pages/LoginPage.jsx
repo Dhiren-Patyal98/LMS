@@ -14,27 +14,33 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isHovered, setIsHovered] = useState(false);
 
-    const formSubmission = () => {
-        fetch("http://localhost:4000/login", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email,password }),
-        }).then((res) => 
-          res.json().then((data) => {
-            console.log(data);
-            if (email === "" && password === "") {
-              navigate("/login");
-            } else if (data)
-             
-            {
-              navigate("/dash");
-            }
-          })
-        );
-        console.log("Email is " + email);
-        console.log("Password is " + password);
+    const formSubmission = async () => {
+        try {
+          const response = await fetch("http://localhost:4000/login", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+    
+          const data = await response.json();
+          
+          if (data.message === 'Login successful') {
+            navigate("/dash");
+          } else {
+            // Handle invalid email or password
+            alert(data.message);
+          }
+        } catch (error) {
+          console.error('Error logging in:', error);
+          // Handle other errors
+          alert('Incorrect email or password');
+        }
       };
 
     const handleHover = () => {

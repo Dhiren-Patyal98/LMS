@@ -22,20 +22,18 @@ export default function DashboardPage() {
 
  const[courseName,setcourseName] = useState();
 
-  const checkoutHandler = async (amount,courseId)=>
+  const checkoutHandler = async (amount)=>
     {
       const {data:{key}} = await axios.get("http://localhost:4000/api/getkey")
-       const {data:{order}} = await axios.post("http://localhost:4000/api/checkout",{amount,courseId})
+       const {data:{order}} = await axios.post("http://localhost:4000/api/checkout",{amount})
       
 
        
        const options = {
-        key,
-        courseId, // Enter the Key ID generated from the Dashboard
+        key, // Enter the Key ID generated from the Dashboard
         amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: "INR",
         name: "CodeEDU",
-
         description: "E-Learning Platform",
         image: {razorimg},
         order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -127,8 +125,8 @@ export default function DashboardPage() {
   // ];
 
   const Explorecourses = [
-    { title: " Backend Courses", image: img, link: "/backendcourse" },
-    { title: "Frontend Courses", image: img, link: "/frontendcourse" },
+    { title: " Backend Courses", image: img, link: "/" },
+    { title: "Frontend Courses", image: img, link: "/" },
   ];
 
   const filteredCourses = coursedata.filter(course =>
@@ -170,7 +168,12 @@ export default function DashboardPage() {
                         <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}>Profile</Col></Row>
                     </li>
 
-                    
+                    <li className='mb-2 rounded hover:shadow hover:bg-gray-200 py-1 px-2' style={{ margin: "10px" }}>
+
+                      <Row>
+                        <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><FiSettings /></Col>
+                        <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}>Setting</Col></Row>
+                    </li>
                     
                       <li className='mb-2 rounded hover:shadow hover:bg-gray-200  py-1 px-2' style={{ margin: "10px" }}>
 
@@ -184,14 +187,7 @@ export default function DashboardPage() {
 
                         <Row>
                           <Col xs={4} style={{ marginTop: "3.5px", paddingleft: "30px" }}><FiLogOut /></Col>
-                          <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}><span onClick={() => {
-                                             fetch("http://localhost:4000/logout", {
-                                                method:"get",
-                                              })
-                                              
-                                            navigate("/login");
-
-                                        }}>Logout</span></Col></Row>
+                          <Col xs={8} style={{ padding: "0", paddingRight: "75px" }}><span onClick={() => navigate('/')}>Logout</span></Col></Row>
                       </li>
 
                     
@@ -208,32 +204,10 @@ export default function DashboardPage() {
         <div style={{ backgroundColor: 'rgba(255, 255, 255, 1)', padding: '20px' }}>
         <div>
             <h1 className={style.heading} style={{ position: 'relative' }}>Start Learning</h1>
-            <hr style={{ marginTop: "13px", marginBottom: "5px" }} />
+            
             {searchTerm === '' && (
               <>
-                <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", marginBottom: "10px" }}>Categories</h3>
-                <Row>
-                  {Explorecourses.map((course, index) => (
-                    <Col key={index} xs="4">
-                      <div className={`card ${style.card}`} style={{boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)"}}>
-                        <div className="card-body">
-                          <Row>
-                            <Col xs="7">
-                              <Link to={course.link}>
-                                <img className={`card-img-top ${style.image1}`} src={course.image} alt="..." />
-                              </Link>
-                            </Col>
-                            <Col xs="5">
-                              <Link to={course.link}>
-                                <h5 style={{ marginTop: "70px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "21px" }} className="card-title">{course.title}</h5>
-                              </Link>
-                            </Col>
-                          </Row>
-                        </div>
-                      </div>
-                    </Col>
-                  ))}
-                </Row>
+                
                 <hr style={{ marginTop: "40px", marginBottom: "5px" }}></hr>
                 <h3 style={{ position: 'relative', marginLeft: "22px", fontFamily: "Georgia, 'Times New Roman', Times, serif", fontSize: "30px", }}>Courses</h3>
                 <Row style={{ marginBottom: "10px", marginTop: "10px" }}>
@@ -246,7 +220,7 @@ export default function DashboardPage() {
                         <div className="card" style={{ width: "30rem", marginLeft: "1rem", marginBottom: "10px", marginTop: "10px" ,boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)" }}>
                           <div className="card-body">
                             <Row>
-                              <Link to={"/calling?id="+course._id}>
+                              <Link to="/calling">
                                 <img className={`card-img-top ${style.image}`} src={img1} alt="..." />
                               </Link>
                             </Row>
@@ -278,7 +252,7 @@ export default function DashboardPage() {
                               <Col style={{marginLeft:"80%" }} xs="6">
                               <div >
                               <button onClick={() => {
-                                checkoutHandler(course.amount, course._id)
+                                checkoutHandler(course.amount)
                                 setcourseName(course.title)
                                 
                                 } }  type="button" className="btn btn-outline-secondary custom-btn">Enroll</button>

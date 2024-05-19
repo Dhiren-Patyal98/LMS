@@ -14,27 +14,32 @@ import { Container } from 'react-bootstrap';
 import CourseDetails from '../SideBarOptions/CourseDetails';
 import Assignment from '../SideBarOptions/Assignment';
 import Quiz from '../SideBarOptions/Quiz'
+import { useState } from "react";
 // import Progress from "../progress/Progress";
 
 
-const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt, quiz, progressbar, setprogressbar }) => {
+const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, video, ppt, quiz, progressbar, setprogressbar,courseid }) => {
+    console.log(courseid);
+    const [id, setid] = useState(courseid);
+    console.log(id);
+    
     let content;
     if (clicked) {
         content = (
             <Container style={{ backgroundColor: 'white', marginTop: '20px', marginBottom: '20px' }}>
-                <Pdf setprogressbar={setprogressbar} progressbar={progressbar} />
+                <Pdf setprogressbar={setprogressbar} progressbar={progressbar}  courseid={id}/>
             </Container>
         );
     } else if (detail) {
         content = <CourseDetails />;
     } else if (video) {
-        content = <CourseVideos setprogressbar={setprogressbar} progressbar={progressbar} />
+        content = <CourseVideos setprogressbar={setprogressbar} progressbar={progressbar} courseid={id}/>
     } else if (assignment) {
         content = <Assignment setprogressbar={setprogressbar} progressbar={progressbar} />
 
     }
     else if (ppt) {
-        content = <Ppt setprogressbar={setprogressbar} progressbar={progressbar} />
+        content = <Ppt setprogressbar={setprogressbar} progressbar={progressbar} courseid={id} />
 
     }
     else if (quiz) {
@@ -94,6 +99,10 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
                                     </li>
                                     <li className='mb-2 rounded hover:shadow hover:bg-gray-200  py-1 px-2' style={{ margin: "10px" }}>
                                         <span onClick={() => {
+                                             fetch("http://localhost:4000/logout", {
+                                                method:"get",
+                                              })
+                                              
                                             navigate("/login");
 
                                         }}>
@@ -114,7 +123,7 @@ const Navbar = ({ sidebarToggle, setsidebarToggle, clicked, detail, assignment, 
 
             {clicked ?
                 <Container style={{ backgroundColor: 'white', marginTop: '20px', marginBottom: '20px' }}>
-                    <Pdf setprogressbar={setprogressbar} progressbar={progressbar} />
+                    <Pdf setprogressbar={setprogressbar} progressbar={progressbar} courseid={id} />
                 </Container>
                 :
 

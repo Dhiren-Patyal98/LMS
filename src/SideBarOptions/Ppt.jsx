@@ -1,11 +1,38 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from '../css/ppt.module.css'
 import ReactIframe from 'react-iframe';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
-const GoogleSlides = ({setprogressbar ,progressbar}) => {
+const GoogleSlides = ({setprogressbar ,progressbar,courseid }) => {
     const [isHovered, setIsHovered] =useState(false);
+
+
+    const [link, setlink] = useState("");
+
+  const id = courseid;
+   console.log(link);
+
+  const getBackend = async (id)=>
+    {
+      console.log(id);
+      try{
+          const response = await axios.get(`http://localhost:4000/api/data/${id}`)
+          console.log(response);
+          setlink(response.data.pptLink)
+      }
+      catch(error)
+      {
+        console.log(error);
+      }
+      
+    
+    }
+    useEffect(()=>{
+      getBackend(id);
+    },[id])
+  
 
     const handleHover = () => {
       setIsHovered(true);
@@ -36,7 +63,7 @@ const GoogleSlides = ({setprogressbar ,progressbar}) => {
         <div>
             <h1 className={style.heading}>Course PPT</h1>
             <ReactIframe
-                url="https://docs.google.com/presentation/d/1SuLq6RClo80dmQP-iXw9W12OzJJCXSln/embed?start=false&loop=false&delayms=3000"
+                url={link}
                 width="100%"
                 height="600px"
                 id="myId"

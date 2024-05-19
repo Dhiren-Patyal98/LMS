@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Sidebar from './Sidebar';
 import OpenSiderBar from './OpenSideBar';
+import { useSearchParams } from 'react-router-dom';
 // import bg from '../assets/background1.jpg';
 
 export default function Calling() {
@@ -12,6 +13,12 @@ export default function Calling() {
   const [ppt, setppt] = useState(false);
   const [ quiz, setquiz] = useState(false);
   const[progressbar,setprogressbar] = useState(0);
+
+
+  const [searchParam] = useSearchParams();
+  const courseid = searchParam.get("courseId")
+  console.log(courseid);
+
   const styles = {
     backgroundImage: ``, // Use `url()` to specify the path to the image
     backgroundSize: '964px', // Adjust the background size
@@ -68,6 +75,7 @@ export default function Calling() {
             setquiz={setquiz}
             progressbar={progressbar}
             setprogressbar={setprogressbar}
+            courseid={courseid}
           />
 
         </div>

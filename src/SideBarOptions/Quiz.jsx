@@ -106,9 +106,10 @@ export default function Quiz({setprogressbar ,progressbar}) {
         </div>
       )}
       {currentQuestion >= questions.length && (
-        <div>
+        <div style={{fontFamily:"Times New Roman" ,fontSize: "22px",
+        }}>
           <h2>Quiz Complete!</h2>
-          <p>You scored {score} out of {questions.length}.</p>
+          <p >You scored {score} out of {questions.length}.</p>
           {buttonClicked && (
             <div>
               <p>Congratulations! You have completed the quiz.</p>

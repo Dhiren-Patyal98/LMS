@@ -7,3 +7,9 @@
   background-color: #581c87; /* Change to the desired purple color */
   color: white; /* Change text color to contrast with the background */
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}

@@ -1,18 +1,31 @@
-import style from '../css/assignment.module.css'
+import style from '../css/assignment.module.css';
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { useState } from 'react'
-export default function Assignment({setprogressbar ,progressbar }) {
 
-  const [buttonClicked, setButtonClicked] = useState(false);
+export default function Assignment({ setprogressbar, progressbar }) {
+  const questions = [
+    'Enter a python code which can do basic calculations.',
+    'Explain how you would handle exceptions in Python.',
+    'Write a Python function to sort a list of numbers.'
+  ];
+
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [editorContent, setEditorContent] = useState('');
+  const editorRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
-    if (!buttonClicked) {
-      setButtonClicked(true);
-      setprogressbar(prevProgressbar => prevProgressbar + 1);
-      console.log(progressbar)
+    if (editorContent) {
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      } else {
+        setprogressbar(prevProgressbar => prevProgressbar + 1);
+      }
+      setEditorContent(''); // Clear the editor content for the next question
+      if (editorRef.current) {
+        editorRef.current.setContent('');
+      }
     }
   };
 
@@ -21,10 +34,6 @@ export default function Assignment({setprogressbar ,progressbar }) {
       setEditorContent(editorRef.current.getContent());
     }
   };
-
-  const editorRef = useRef(null);
-
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleHover = () => {
     setIsHovered(true);
@@ -46,9 +55,8 @@ export default function Assignment({setprogressbar ,progressbar }) {
     <>
       <div className={`card ${style.ques}`}>
         <div className='card-body'>
-          <p>Enter a python code which can do basic calculations. </p>
+          <p>{questions[currentQuestionIndex]}</p>
         </div>
-
       </div>
       <Editor
         apiKey='zz04k1tc5w8gnogwyss4cpp7yxez5jbxi7enlubc6gyrku9k'
@@ -72,7 +80,6 @@ export default function Assignment({setprogressbar ,progressbar }) {
       />
       <div className={style.button}>
         <button type='submit' size="lg"
-
           style={{
             ...buttonStyle,
             backgroundColor: isHovered ? '#6f42c1' : '#581c87',
@@ -86,12 +93,12 @@ export default function Assignment({setprogressbar ,progressbar }) {
           disabled={!editorContent}
           onClick={handleClick}
         >Submit</button>
-
-    </div>
+      </div>
     </>
   );
 }
+
 Assignment.propTypes = {
-  progressbar:PropTypes.func.isRequired,
-  setprogressbar:PropTypes.func.isRequired,
+  progressbar: PropTypes.number.isRequired,
+  setprogressbar: PropTypes.func.isRequired,
 };

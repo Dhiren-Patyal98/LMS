@@ -1,14 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import styles from '../css/pdf.module.css';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-const PDF_URL = "https://firebasestorage.googleapis.com/v0/b/codeedu-7fc91.appspot.com/o/python-basics-sample-chapters.pdf?alt=media&token=ab0bcf95-ab32-4507-a778-1fea031f4c3e";
+const PDF_URL = "https://firebasestorage.googleapis.com/v0/b/codeedu-7fc91.appspot.com/o/pdf%20react2.pdf?alt=media&token=9b2f73e0-b4d9-4f4c-9bd4-f708297f1a4b";
 
-export default function Pdf({setprogressbar ,progressbar}) {
+export default function Pdf({setprogressbar ,progressbar,courseid}) {
+
+  const [link, setlink] = useState("");
+
+  const id = courseid;
+   console.log(link);
+
+  const getBackend = async (id)=>
+    {
+      console.log(id);
+      try{
+          const response = await axios.get(`http://localhost:4000/api/data/${id}`)
+          console.log(response);
+          setlink(response.data.pdfLink)
+      }
+      catch(error)
+      {
+        console.log(error);
+      }
+      
+    
+    }
+    useEffect(()=>{
+      getBackend(id);
+    },[id])
+  
+  
   
   const [isHovered, setIsHovered] = useState(false);
 
@@ -67,7 +95,7 @@ export default function Pdf({setprogressbar ,progressbar}) {
       <div className={styles.pdf}>
         <div style={{ marginTop: '10px', marginBottom: '10px' }}>
           <Document
-            file={PDF_URL} // Use the URL of your PDF file
+            file={link} // Use the URL of your PDF file
             onLoadSuccess={handleDocumentLoadSuccess}
           >
             <Page pageNumber={currentPageNumber} />
